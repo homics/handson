@@ -1,4 +1,4 @@
-package com.homics.monolith.model;
+package com.homics.useractivity.model;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -6,11 +6,6 @@ import java.util.Objects;
 
 @Entity
 public class UserActivity {
-
-    // TODO 5:
-    //  Clean the code in monolith
-    //  We don't need this entity for user since we have it into the microservice
-
     @Id
     @GeneratedValue
     private Long id;

@@ -117,7 +117,7 @@ target/maven-status/
 target/node/
 target/test-classes/
 target/surefire/
-target/classes
+target/classes/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

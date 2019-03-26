@@ -1,6 +1,6 @@
-package com.homics.monolith.controller.dto;
+package com.homics.useractivity.controller.dto;
 
-import com.homics.monolith.model.ActivityType;
+import com.homics.useractivity.model.ActivityType;
 
 import java.time.Instant;
 
@@ -41,5 +41,14 @@ public class UserActivityDto {
 
     public void setActivityDate(Instant activityDate) {
         this.activityDate = activityDate;
+    }
+
+    @Override
+    public String toString() {
+        return "UserActivityDto{" +
+                "username='" + username + '\'' +
+                ", activityType=" + activityType +
+                ", activityDate=" + activityDate +
+                '}';
     }
 }

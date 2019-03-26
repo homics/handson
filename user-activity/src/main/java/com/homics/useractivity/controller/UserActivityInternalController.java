@@ -1,7 +1,7 @@
-package com.homics.monolith.controller;
+package com.homics.useractivity.controller;
 
-import com.homics.monolith.controller.dto.UserActivityDto;
-import com.homics.monolith.service.UserActivityService;
+import com.homics.useractivity.controller.dto.UserActivityDto;
+import com.homics.useractivity.service.UserActivityService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mono/internal/user")
+@RequestMapping("/user/internal")
 public class UserActivityInternalController {
-
-    // TODO 5:
-    //  Clean the code in monolith by removing this file
-    //  We don't need any controller for user since we have the microservice
 
     private UserActivityService userActivityService;
 
@@ -26,4 +22,5 @@ public class UserActivityInternalController {
     private List<UserActivityDto> getActivities() {
         return userActivityService.getUserActivities();
     }
+
 }

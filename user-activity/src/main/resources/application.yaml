@@ -1,0 +1,27 @@
+# Application YAML config
+
+# Set port for micro-service
+server:
+  # TODO 2: change port to 9001
+  port: 8080
+
+spring:
+
+  # Enable h2 console
+  h2:
+    console:
+      enabled: true
+      path: /console
+
+  # Set-up datasource
+  datasource:
+    url: jdbc:h2:mem:useractivitydb
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  application:
+    name: user

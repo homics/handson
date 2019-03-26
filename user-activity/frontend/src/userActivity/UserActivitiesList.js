@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Col, Row, Table} from 'react-bootstrap';
 import {userActivityShape} from "./userActivityShape";
-import * as moment from "moment";
+import moment from 'moment-timezone';
 
 function UserActivityList({ userActivity }) {
 
@@ -24,7 +24,7 @@ function UserActivityList({ userActivity }) {
                   <tr key={activity.activityDate.toString()}>
                     <td>{activity.username}</td>
                     <td>{activity.activityType}</td>
-                    <td>{activity.activityDate}</td>
+                    <td>{moment(activity.activityDate).tz('America/Los_Angeles').format('DD/MM/YYYY hh:mm:ss')}</td>
                   </tr>
                 )}
             </tbody>

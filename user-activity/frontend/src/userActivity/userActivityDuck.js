@@ -18,7 +18,7 @@ export default function userActivity(state = initialState, action) {
 export function fetchUserActivity() {
   return dispatch =>
     axios
-      .get("/mono/internal/user/activity").then(response =>
+      .get("/user/internal/activity").then(response =>
         dispatch({
           type: USER_ACTIVITY_LOADED,
           payload: response.data,

@@ -17,11 +17,8 @@ public class UserActivityApiController {
         this.userActivityService = userActivityService;
     }
 
-    private void registerActivity() {
-        // TODO 1:
-        //  Listen to post query on /user/api/activity.
-        //  Get the object from the request body and register it with the UserActivityService
-        //  Use @PostMapping and @RequestBody
-        //  Warning: you already have the /user/api in your RequestMapping
+    @PostMapping("/activity")
+    private void registerActivity(@RequestBody UserActivityDto userActivityDto) {
+        userActivityService.registerActivity(userActivityDto);
     }
 }

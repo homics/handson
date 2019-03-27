@@ -1,9 +1,8 @@
 # Application YAML config
 
-# Set port for micro-service
+# Set port for micro-service to 9001
 server:
-  # TODO 2: change port to 9001
-  port: 8080
+  port: 9001
 
 spring:
 

@@ -2,11 +2,10 @@ package com.homics.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 @SpringBootApplication
-// TODO 2:
-//  You need to add an annotation to enable Zuul. Check the documentation:
-//  https://cloud.spring.io/spring-cloud-netflix/multi/multi__router_and_filter_zuul.html
+@EnableZuulProxy
 public class GatewayApplication {
 
 	public static void main(String[] args) {

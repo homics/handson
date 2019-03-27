@@ -9,14 +9,17 @@ spring:
     name: zuul-server
 
 # Zuul routing
-
-# TODO 1: Zuul routing
-#  Add the routes for Zuul.
-#  You will need to specify the root for all your microservice
-#  So far, you have to add the monolith with the url /mono and user with the url /user
-#
-#  Monolith is on port 8090
-#  User is on port 9001
-#
-#  You can find the documentation for Zuul here: https://cloud.spring.io/spring-cloud-netflix/multi/multi__router_and_filter_zuul.html
-#  Checkout the instructions for an example.
+zuul:
+  routes:
+    monolith:
+      path: /mono/**
+      url: http://localhost:8090/mono/
+    user:
+      path: /user/**
+      url: http://localhost:9001/user/
+    stats:
+      path: /stats/**
+      url: http://localhost:9002/stats/
+    stock:
+      path: /stock/**
+      url: http://localhost:9003/stock/

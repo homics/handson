@@ -7,6 +7,6 @@ export default function auth(state = {}, action) {
 export function performLogout(){
   return () =>
     axios
-        .post("http://localhost:8080/mono/perform_logout")
-        .finally( () =>  window.location.replace("http://localhost:8080/mono/login"));
+        .post("http://localhost:8080/perform_logout")
+        .finally( () =>  window.location.replace("http://localhost:8080/login"));
 }

@@ -20,10 +20,10 @@ const Article = ({ article, onArticleClicked }) => {
           alt={article.name}
         />
         <Media.Body>
-              <h5>{article.name} <small>({article.stock})</small></h5>
-            <p>
-              {article.description}
-            </p>
+          <h5>{article.name} <small>({article.stock})</small></h5>
+          <p>
+            {article.description}
+          </p>
           <Row>
             <Col>
               <Button className="float-right" size="sm" onClick={onCartClicked} style={{ minWidth: '6rem' }}>

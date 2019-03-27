@@ -1,6 +1,10 @@
 # Application YAML configuration
-spring:
 
+# Change port for the monolith to 8090
+server:
+  port: 8090
+
+spring:
   # Enable h2 console
   h2:
     console:

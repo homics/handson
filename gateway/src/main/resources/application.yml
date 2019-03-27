@@ -1,0 +1,22 @@
+# Application YAML configuration
+
+# Set port for gateway to 8080
+server:
+  port: 8080
+
+spring:
+  application:
+    name: zuul-server
+
+# Zuul routing
+
+# TODO 1: Zuul routing
+#  Add the routes for Zuul.
+#  You will need to specify the root for all your microservice
+#  So far, you have to add the monolith with the url /mono and user with the url /user
+#
+#  Monolith is on port 8090
+#  User is on port 9001
+#
+#  You can find the documentation for Zuul here: https://cloud.spring.io/spring-cloud-netflix/multi/multi__router_and_filter_zuul.html
+#  Checkout the instructions for an example.

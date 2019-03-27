@@ -1,5 +1,6 @@
 package com.homics.monolith.service;
 
+import com.homics.monolith.config.UserStore;
 import com.homics.monolith.controller.dto.OrderStatsDto;
 import com.homics.monolith.model.Article;
 import com.homics.monolith.model.Order;
@@ -22,18 +23,16 @@ public class OrderService {
     private ArticleRepository articleRepository;
     private OrderLineRepository orderLineRepository;
     private ArticleService articleService;
-    private AuthenticationFacade authenticationFacade;
 
-    public OrderService(OrderRepository orderRepository, OrderLineRepository orderLineRepository, ArticleService articleService, ArticleRepository articleRepository, AuthenticationFacade authenticationFacade) {
+    public OrderService(OrderRepository orderRepository, OrderLineRepository orderLineRepository, ArticleService articleService, ArticleRepository articleRepository) {
         this.articleService = articleService;
         this.orderRepository = orderRepository;
         this.orderLineRepository = orderLineRepository;
         this.articleRepository = articleRepository;
-        this.authenticationFacade = authenticationFacade;
     }
 
     public List<Order> getPayedOrders() {
-        return orderRepository.getPayedOrder(authenticationFacade.getLoggedUserName());
+        return orderRepository.getPayedOrder(UserStore.getUserName());
     }
 
     private Order getOrderById(Long id) {
@@ -41,14 +40,14 @@ public class OrderService {
     }
 
     private Order getCurrentOrder() {
-        return orderRepository.getCurrentOrder(authenticationFacade.getLoggedUserName());
+        return orderRepository.getCurrentOrder(UserStore.getUserName());
     }
 
     public Order getCurrentOrCreateOrder() {
         Order order = getCurrentOrder();
         if (order == null) {
             order = new Order();
-            order.setUser(authenticationFacade.getLoggedUserName());
+            order.setUser(UserStore.getUserName());
             order.setStatus(OrderStatus.PENDING);
             order = orderRepository.save(order);
         }
@@ -104,7 +103,7 @@ public class OrderService {
     }
 
     public OrderStatsDto getStats() {
-        String user = authenticationFacade.getLoggedUserName();
+        String user = UserStore.getUserName();
         Long count = orderRepository.getOrderCount(user);
         Double avg = orderRepository.getOrderAvg(user);
         return new OrderStatsDto(count, avg);

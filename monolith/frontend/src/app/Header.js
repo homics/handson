@@ -3,10 +3,10 @@ import logo from '../assets/logo.svg'
 import styled from '@emotion/styled'
 import {keyframes} from '@emotion/core'
 import {Nav} from 'react-bootstrap';
-import {connect} from "react-redux";
 import {LinkContainer} from 'react-router-bootstrap';
-import {bindActionCreators} from "redux";
 import {performLogout} from "../auth/authDuck";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
 const rotate360 = keyframes`
   from {
@@ -38,55 +38,54 @@ const Title = styled.div`
   color: #fff;
 `;
 
-const Header = ({isLogged, performLogout}) => (
+const Header = ({performLogout}) => (
   <Fragment>
     <TopBar>
       <img src={logo} className="redux-logo" alt="logo" />
       <Title>HOMicS: Market Place Project</Title>
     </TopBar>
-    {isLogged &&
-        <Nav variant="tabs">
-          <Nav.Item>
-            <LinkContainer to={"/articles"} >
-              <Nav.Link eventKey={1}>
+    <Nav variant="tabs">
+      <Nav.Item>
+        <LinkContainer to={"/articles"} >
+          <Nav.Link eventKey={1}>
                       Articles
-              </Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to={"/cart"} >
-              <Nav.Link eventKey={2}>
+          </Nav.Link>
+        </LinkContainer>
+      </Nav.Item>
+      <Nav.Item>
+        <LinkContainer to={"/cart"} >
+          <Nav.Link eventKey={2}>
                       Cart
-              </Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to={"/history"} >
-              <Nav.Link eventKey={3}>
+          </Nav.Link>
+        </LinkContainer>
+      </Nav.Item>
+      <Nav.Item>
+        <LinkContainer to={"/history"} >
+          <Nav.Link eventKey={3}>
                       History
-              </Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to={"/stats"} >
-              <Nav.Link eventKey={4}>
+          </Nav.Link>
+        </LinkContainer>
+      </Nav.Item>
+      <Nav.Item>
+        <LinkContainer to={"/stats"} >
+          <Nav.Link eventKey={4}>
                       Stats
-              </Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-             <Nav.Link href="http://localhost:9001/user/userActivity">User Activity micro</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link onClick={performLogout}>Logout</Nav.Link>
-          </Nav.Item>
-        </Nav>
-    }
+          </Nav.Link>
+        </LinkContainer>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/user/userActivity">User Activity micro</Nav.Link>
+        </Nav.Item>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link onClick={performLogout}>Logout</Nav.Link>
+      </Nav.Item>
+    </Nav>
 
   </Fragment>
 );
 
-const mapStateToProps = state => ({isLogged: state.auth.isLogged});
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -98,6 +97,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(Header)

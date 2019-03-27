@@ -7,11 +7,9 @@ import configureStore from './store';
 import {ToastContainer} from "react-toastify";
 import Header from "./Header";
 import CartPage from "../order/CartPage";
-import LoginPage from "../auth/LoginPage";
 import HistoryPage from '../order/HistoryPage';
 import StatsPage from '../stats/StatsPage';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
 import 'react-toastify/dist/ReactToastify.min.css';
 import NotFound from "./NotFound";
 
@@ -32,12 +30,11 @@ class App extends Component {
           <div>
             <Header />
             <Switch>
-              <Route path="/login" component={LoginPage} />
-              <PrivateRoute path="/cart" component={CartPage} />
-              <PrivateRoute path="/history" component={HistoryPage} />
-              <PrivateRoute path="/stats" component={StatsPage} />
-              <PrivateRoute path="/articles" component={ArticlePage} />
-              <PrivateRoute component={NotFound} />
+              <Route path="/cart" component={CartPage} />
+              <Route path="/history" component={HistoryPage} />
+              <Route path="/stats" component={StatsPage} />
+              <Route path="/articles" component={ArticlePage} />
+              <Route component={NotFound} />
             </Switch>
           </div>
         </Router>

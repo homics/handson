@@ -46,16 +46,16 @@ const Header = ({performLogout}) => (
     </TopBar>
         <Nav variant="tabs">
           <Nav.Item>
-            <Nav.Link href="http://localhost:8080/mono/articles">Articles</Nav.Link>
+            <Nav.Link href="/mono/articles">Articles</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="http://localhost:8080/mono/cart">Cart</Nav.Link>
+            <Nav.Link href="/mono/cart">Cart</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="http://localhost:8080/mono/history">History</Nav.Link>
+            <Nav.Link href="/mono/history">History</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="http://localhost:8080/mono/stats">Stats</Nav.Link>
+            <Nav.Link href="/mono/stats">Stats</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <LinkContainer to={"/user/userActivity"} >

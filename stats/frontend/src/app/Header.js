@@ -55,34 +55,33 @@ const Header = ({performLogout}) => (
             <Nav.Link href="/mono/history">History</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/stats/stat-order">Stats micro</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to={"/user/userActivity"} >
+            <LinkContainer to={"/stats/stat-order"} >
               <Nav.Link eventKey={5}>
-                      User Activity micro
+                      Stats micro
               </Nav.Link>
             </LinkContainer>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/user/userActivity">User Activity micro</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link onClick={performLogout}>Logout</Nav.Link>
           </Nav.Item>
         </Nav>
-
-  </Fragment>
+    </Fragment>
 );
 
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      performLogout,
-    },
-    dispatch
-  )
+    return bindActionCreators(
+        {
+            performLogout,
+        },
+        dispatch
+    )
 };
 
 export default connect(
-  null,
-  mapDispatchToProps,
+    null,
+    mapDispatchToProps,
 )(Header)

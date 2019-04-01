@@ -63,7 +63,7 @@ const Header = ({isLogged, performLogout}) => (
         </Nav.Item>
         <Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/mono/stats">Stats</Nav.Link>
+            <Nav.Link href="/stats/stat-order">Stats micro</Nav.Link>
           </Nav.Item>
         </Nav.Item>
         <Nav.Item>

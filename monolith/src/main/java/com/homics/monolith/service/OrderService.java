@@ -35,7 +35,7 @@ public class OrderService {
         return orderRepository.getPayedOrder(UserStore.getUserName());
     }
 
-    private Order getOrderById(Long id) {
+    public Order getOrderById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
 
@@ -78,8 +78,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void payOrder(Long orderId) {
-        Order order = getOrderById(orderId);
+    public void payOrder(Order order) {
         validateOrderStock(order);
         order.setStatus(OrderStatus.PAYED);
         orderRepository.save(order);
@@ -102,6 +101,8 @@ public class OrderService {
         });
     }
 
+    // TODO 4
+    //  Clean this method, it won't be use anymore.
     public OrderStatsDto getStats() {
         String user = UserStore.getUserName();
         Long count = orderRepository.getOrderCount(user);

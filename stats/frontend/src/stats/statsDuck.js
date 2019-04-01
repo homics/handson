@@ -24,7 +24,7 @@ export default function stats(state = initialState, action) {
 export function fetchOrderStats() {
   return dispatch =>
     axios
-      .get("/mono/internal/orders/stats")
+      .get("/stats/internal/orders")
       .then(response => {
         return dispatch({
           type: STATS_LOADED,

@@ -67,11 +67,7 @@ const Header = ({performLogout}) => (
         </LinkContainer>
       </Nav.Item>
       <Nav.Item>
-        <LinkContainer to={"/stats"} >
-          <Nav.Link eventKey={4}>
-                      Stats
-          </Nav.Link>
-        </LinkContainer>
+        <Nav.Link href="/stats/stat-order">Stats micro</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Item>

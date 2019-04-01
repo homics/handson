@@ -1,10 +1,12 @@
 package com.homics.monolith.service;
 
 import com.homics.monolith.model.Order;
+import com.homics.monolith.model.OrderPayMessage;
 import com.homics.monolith.repository.OrderStatsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import com.homics.monolith.controller.dto.OrderPayMessageDto;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -19,23 +21,21 @@ public class StatsService {
     }
 
     public void addOrderPayMessage(Order order) {
-        // TODO 1 :
-        //  Save an orderPayMessage in the database.
-        //  The scheduled task will send it later.
+        orderStatsRepository.save(new OrderPayMessage(order));
     }
 
     public void sendStats() {
-        // TODO 3:
-        //  Fetch all orderPayMessages
-        //  Send them as orderPayMessagesDto to the micro service with a post on : http://localhost:9002/stats/api/orders
-        //  If the post is successful, remove it from the database
+        orderStatsRepository.findAll().forEach(this::sendStat);
     }
 
+    private void sendStat(OrderPayMessage orderPayMessage) {
+        Order order = orderPayMessage.getOrder();
+        OrderPayMessageDto orderPayMessageDto = new OrderPayMessageDto(order.getId(), order.getTotalPrice(), order.getUser());
 
-    private boolean sendStat() {
-        // TODO 3:
-        //  Edit the method to send the stats via restTemplate.
-        ResponseEntity<String> response = restTemplate.postForEntity("MY_URL", "MY_ENTITY_TO_SEND", String.class);
-        return HttpStatus.OK.equals(response.getStatusCode());
+        ResponseEntity<String> response = restTemplate.postForEntity(ORDER_STAT_URL, orderPayMessageDto, String.class);
+
+        if (HttpStatus.OK.equals(response.getStatusCode())) {
+            orderStatsRepository.delete(orderPayMessage);
+        }
     }
 }

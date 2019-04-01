@@ -1,7 +1,6 @@
 package com.homics.monolith.controller;
 
 import com.homics.monolith.controller.dto.ArticleDto;
-import com.homics.monolith.controller.dto.OrderStatsDto;
 import com.homics.monolith.model.Order;
 import com.homics.monolith.service.OrderService;
 import com.homics.monolith.service.PayOrderService;
@@ -29,11 +28,6 @@ public class OrderInternalController {
     @GetMapping("/history")
     public List<Order> getHistory() {
         return orderService.getPayedOrders();
-    }
-
-    @GetMapping("/stats")
-    public OrderStatsDto getStats() {
-        return orderService.getStats();
     }
 
     @PostMapping("/{orderId}/add-article")

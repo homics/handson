@@ -18,17 +18,12 @@ public class StatsService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    // NOTE : In the previous exercise, the stats flow was :
-    //  - Save the stats operation in the database
-    //  - A scheduled task runs and fetches unsent stats from the repository
-    //  - Send them to the microservice and remove the data from the table if success.
-    //
-    // Starting from this exercise, we send the stats directly via Kafka.
-
     public void sendStat(Order order) {
-        // TODO 1: Send an OrderPayedMessage to the stats microservice via kafka.
-        //  Use the MessageBuilder from springkafka to generate this message.
-        //  Set the topic to 'TOPIC_STATS' from the common-messaging lib.
-        //  Then send it with the kafkaTemplate.
+        Message<OrderPayedMessage> message = MessageBuilder
+                .withPayload(new OrderPayedMessage(order.getId(), order.getTotalPrice(), order.getUser()))
+                .setHeader(KafkaHeaders.TOPIC, TOPIC_STATS)
+                .build();
+
+        kafkaTemplate.send(message);
     }
 }

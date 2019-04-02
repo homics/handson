@@ -19,6 +19,6 @@ public class PayOrderService {
     public void payOrder(Long orderId) {
         Order order = orderService.getOrderById(orderId);
         orderService.payOrder(order);
-        statsService.addOrderPayMessage(order);
+        statsService.sendStat(order);
     }
 }

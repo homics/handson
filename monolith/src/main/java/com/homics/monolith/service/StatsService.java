@@ -1,41 +1,34 @@
 package com.homics.monolith.service;
 
+import com.homics.messaging.model.OrderPayedMessage;
 import com.homics.monolith.model.Order;
-import com.homics.monolith.model.OrderPayMessage;
-import com.homics.monolith.repository.OrderStatsRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
-import com.homics.monolith.controller.dto.OrderPayMessageDto;
-import org.springframework.web.client.RestTemplate;
+
+import static com.homics.messaging.config.KafkaTopicConfig.TOPIC_STATS;
 
 @Service
 public class StatsService {
-    final String ORDER_STAT_URL = "http://localhost:9002/stats/api/orders";
-    private RestTemplate restTemplate;
-    private OrderStatsRepository orderStatsRepository;
+    private KafkaTemplate<String, OrderPayedMessage> kafkaTemplate;
 
-    public StatsService(RestTemplate restTemplate, OrderStatsRepository orderStatsRepository) {
-        this.restTemplate = restTemplate;
-        this.orderStatsRepository = orderStatsRepository;
+    public StatsService( KafkaTemplate<String, OrderPayedMessage> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void addOrderPayMessage(Order order) {
-        orderStatsRepository.save(new OrderPayMessage(order));
-    }
+    // NOTE : In the previous exercise, the stats flow was :
+    //  - Save the stats operation in the database
+    //  - A scheduled task runs and fetches unsent stats from the repository
+    //  - Send them to the microservice and remove the data from the table if success.
+    //
+    // Starting from this exercise, we send the stats directly via Kafka.
 
-    public void sendStats() {
-        orderStatsRepository.findAll().forEach(this::sendStat);
-    }
-
-    private void sendStat(OrderPayMessage orderPayMessage) {
-        Order order = orderPayMessage.getOrder();
-        OrderPayMessageDto orderPayMessageDto = new OrderPayMessageDto(order.getId(), order.getTotalPrice(), order.getUser());
-
-        ResponseEntity<String> response = restTemplate.postForEntity(ORDER_STAT_URL, orderPayMessageDto, String.class);
-
-        if (HttpStatus.OK.equals(response.getStatusCode())) {
-            orderStatsRepository.delete(orderPayMessage);
-        }
+    public void sendStat(Order order) {
+        // TODO 1: Send an OrderPayedMessage to the stats microservice via kafka.
+        //  Use the MessageBuilder from springkafka to generate this message.
+        //  Set the topic to 'TOPIC_STATS' from the common-messaging lib.
+        //  Then send it with the kafkaTemplate.
     }
 }

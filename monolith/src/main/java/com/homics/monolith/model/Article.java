@@ -3,7 +3,6 @@ package com.homics.monolith.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
 import java.util.Objects;
 
 @Entity
@@ -15,13 +14,7 @@ public class Article {
     private String name;
     private String description;
     private String image;
-
-    // TODO 1
-    //  Remove Stock from the monolith.
-    @Min(value = 0L, message = "The stock of a product must be positive")
-    private Integer stock;
     private Float price;
-
 
     public Long getId() {
         return id;
@@ -53,14 +46,6 @@ public class Article {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 
     public Float getPrice() {

@@ -23,10 +23,10 @@ public class ImpactStockConsumer {
     }
 
 
-    public void onImpactStockMessage() {
-        // TODO 4
-        //  Consume ImpactStockMessage from TOPIC_IMPACT_STOCK
-        //  Call the service with the messages for treatment.
+    @KafkaListener(topics = TOPIC_IMPACT_STOCK, groupId = GROUP_ID, containerFactory = IMPACT_STOCK_MESSAGE_FACTORY)
+    public void onImpactStockMessage(@Payload ImpactStockMessage impactStockMessage) {
+        logger.info(String.format("#### -> Consuming ImpactStockMessage -> %s", impactStockMessage));
+        stockService.impactStock(impactStockMessage);
     }
 
 }

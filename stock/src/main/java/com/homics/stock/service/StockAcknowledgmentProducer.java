@@ -25,7 +25,11 @@ public class StockAcknowledgmentProducer {
 
     public void notifyStockChanges(Long operationId, boolean success) {
         logger.info(String.format("#### -> Sending StockAcknowledgmentMessage success: %s", success));
-        // TODO 9
-        //  notify kafka that the stock changes has be done.
+        Message<StockAcknowledgmentMessage> message = MessageBuilder
+                .withPayload(new StockAcknowledgmentMessage(operationId, success))
+                .setHeader(KafkaHeaders.TOPIC, TOPIC_ACKNOWLEDGE_STOCK)
+                .build();
+
+        kafkaTemplate.send(message);
     }
 }

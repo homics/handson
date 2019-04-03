@@ -6,13 +6,11 @@ import com.homics.monolith.model.Article;
 import com.homics.monolith.model.Order;
 import com.homics.monolith.model.OrderLine;
 import com.homics.monolith.model.OrderStatus;
-import com.homics.monolith.repository.ArticleRepository;
 import com.homics.monolith.repository.OrderLineRepository;
 import com.homics.monolith.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,20 +18,18 @@ import java.util.Optional;
 public class OrderService {
 
     private OrderRepository orderRepository;
-    private ArticleRepository articleRepository;
     private OrderLineRepository orderLineRepository;
     private ArticleService articleService;
     private StatsService statsService;
     private StockService stockService;
 
     public OrderService(OrderRepository orderRepository, OrderLineRepository orderLineRepository, ArticleService articleService,
-                        ArticleRepository articleRepository, StockService stockService, StatsService statsService) {
+                        StockService stockService, StatsService statsService) {
         this.articleService = articleService;
         this.stockService = stockService;
         this.statsService = statsService;
         this.orderRepository = orderRepository;
         this.orderLineRepository = orderLineRepository;
-        this.articleRepository = articleRepository;
     }
 
     public List<Order> getPayedOrCancelledOrders() {
@@ -84,30 +80,7 @@ public class OrderService {
 
     @Transactional
     public void payOrder(Order order) {
-        //TODO 2
-        // Remove stock validation since it's now handle in the microservice Stock.
-        // Remove the order update (the status PAYED will be set when the microservice has decreased the stock).
-        // Call the stock service to impact the stock
-        validateOrderStock(order);
-        order.setStatus(OrderStatus.PAYED);
-        orderRepository.save(order);
-        impactArticleStock(order);
-    }
-
-    private void impactArticleStock(Order order) {
-        order.getOrderLines().forEach(orderLine -> impactArticleStock(orderLine.getArticle(), orderLine.getQuantity()));
-    }
-
-    private void impactArticleStock(Article article, Integer quantity) {
-        articleRepository.decrementStock(article.getId(), quantity);
-    }
-
-    private void validateOrderStock(Order order) {
-        order.getOrderLines().forEach(line -> {
-            if (line.getQuantity() > line.getArticle().getStock()) {
-                throw new ValidationException("The stock is no longer available");
-            }
-        });
+        stockService.impactStock(order);
     }
 
     public void removeOrderLine(Long orderId, Long orderLineId) {
@@ -124,11 +97,14 @@ public class OrderService {
 
     @Transactional
     public void updateOrderStatus(StockAcknowledgmentMessage message) {
-        // TODO 10
-        //  The StockAcknowledgmentMessage has been read from kafka.
-        //  The order status need to be set to PAYED or CANCELLED
-
-        //TODO 11
-        // Update stats in case of success
+        Order order = orderRepository.getOne(message.getOperationId());
+        if (message.isSucceed()) {
+            order.setStatus(OrderStatus.PAYED);
+            orderRepository.save(order);
+            statsService.sendStat(order);
+        } else {
+            order.setStatus(OrderStatus.CANCELLED);
+            orderRepository.save(order);
+        }
     }
 }

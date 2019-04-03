@@ -15,6 +15,9 @@ public class Article {
     private String name;
     private String description;
     private String image;
+
+    // TODO 1
+    //  Remove Stock from the monolith.
     @Min(value = 0L, message = "The stock of a product must be positive")
     private Integer stock;
     private Float price;

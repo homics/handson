@@ -15,7 +15,7 @@ function OrderList({ orders }) {
                     <Media.Body>
                       <Row>
                         <Col>
-                          <h5>Order : {order.id}</h5>
+                          <h5>Order : {order.id}  [{order.status}]</h5>
                         </Col>
                         <Col>
                           <span className="float-right" size="sm">

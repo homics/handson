@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {bindActionCreators, compose} from 'redux'
 import {connect} from 'react-redux'
-import {fetchArticles} from './articleDuck';
+import {fetchArticles, fetchArticlesStocks} from './articleDuck';
 import {addArticleToOrder} from '../order/orderDuck';
 
 import Article from './Article';
@@ -21,6 +21,7 @@ class ArticlePage extends React.Component {
     this.props.fetchArticles().then(() =>
       this.setState({ hasFetchArticles: true })
     );
+    this.props.fetchArticlesStocks();
   }
 
   onArticleClicked = (article) => {
@@ -34,6 +35,17 @@ class ArticlePage extends React.Component {
       });
   };
 
+  getArticleStock = (articleId) => {
+      const { stocks } = this.props;
+      let stock = "-"
+      stocks.forEach( articleStock => {
+        if( articleStock.articleId ===  articleId){
+            stock = articleStock.stock;
+        }
+      });
+      return stock;
+  }
+
   render() {
     const { articles } = this.props;
     const { hasFetchArticles } = this.state;
@@ -46,7 +58,11 @@ class ArticlePage extends React.Component {
                 <ul className="list-unstyled">
                   {
                     articles.map(article =>
-                      <Article key={article.id} article={article} onArticleClicked={this.onArticleClicked}/>
+                      <Article
+                        key={article.id}
+                        article={article}
+                        stock={this.getArticleStock(article.id)}
+                        onArticleClicked={this.onArticleClicked}/>
                     )
                   }
                 </ul>
@@ -61,8 +77,10 @@ class ArticlePage extends React.Component {
 
 ArticlePage.propTypes = {
   articles: PropTypes.array,
+  stocks: PropTypes.array,
   currentOrder: PropTypes.object,
   fetchArticles: PropTypes.func.isRequired,
+  fetchArticlesStocks: PropTypes.func.isRequired,
   addArticleToOrder: PropTypes.func.isRequired,
   fetchCurrentOrder: PropTypes.func.isRequired,
 };
@@ -70,6 +88,7 @@ ArticlePage.propTypes = {
 function mapStateToProps(state) {
   return {
     articles: state.article.list,
+    stocks: state.article.stocks,
     currentOrder: state.order.currentOrder,
   }
 }
@@ -78,6 +97,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       fetchArticles,
+      fetchArticlesStocks,
       addArticleToOrder
     },
     dispatch

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import { Button, Media, Col, Row } from 'react-bootstrap';
 
-const Article = ({ article, onArticleClicked }) => {
+const Article = ({ article, stock, onArticleClicked }) => {
   const onCartClicked = () => {
     onArticleClicked(article)
   };
@@ -20,7 +20,7 @@ const Article = ({ article, onArticleClicked }) => {
           alt={article.name}
         />
         <Media.Body>
-          <h5>{article.name} <small>({article.stock})</small></h5>
+        <h5>{article.name} <small>({stock})</small></h5>
           <p>
             {article.description}
           </p>
@@ -38,8 +38,9 @@ const Article = ({ article, onArticleClicked }) => {
 };
 
 Article.propTypes = {
-  article: PropTypes.object,
-  onArticleSelected: PropTypes.func,
+    article: PropTypes.object, 
+    stock: PropTypes.string,
+    onArticleSelected: PropTypes.func,
 };
 
 export default Article;

@@ -1,0 +1,22 @@
+# Enabling H2 Console
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /console
+
+  datasource:
+    url: jdbc:h2:mem:stockdb
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+app:
+  topic:
+    stock: stock
+
+server:
+  port: 9003

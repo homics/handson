@@ -13,6 +13,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("FROM Order WHERE status = 'PENDING' and user = ?1")
     Order getCurrentOrder(String user);
 
-    @Query("FROM Order WHERE status = 'PAYED' and user = ?1")
-    List<Order> getPayedOrder(String user);
+    @Query("FROM Order WHERE status <> 'PENDING' and user = ?1")
+    List<Order> getPayedOrCancelledOrder(String user);
 }

@@ -27,7 +27,7 @@ public class OrderInternalController {
 
     @GetMapping("/history")
     public List<Order> getHistory() {
-        return orderService.getPayedOrders();
+        return orderService.getPayedOrCancelledOrders();
     }
 
     @PostMapping("/{orderId}/add-article")

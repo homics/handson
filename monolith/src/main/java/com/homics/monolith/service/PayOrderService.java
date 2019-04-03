@@ -1,6 +1,7 @@
 package com.homics.monolith.service;
 
 import com.homics.monolith.model.Order;
+import com.homics.monolith.model.OrderStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,6 +20,5 @@ public class PayOrderService {
     public void payOrder(Long orderId) {
         Order order = orderService.getOrderById(orderId);
         orderService.payOrder(order);
-        statsService.sendStat(order);
     }
 }

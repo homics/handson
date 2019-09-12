@@ -8,25 +8,23 @@ spring:
   application:
     name: zuul-server
 
-# Todo 3: Edit the url with the user application's name in the docker-compose
 # Url used for restTemplate calls to the application user
 app:
   user:
-    url: http://localhost:9001
+    url: http://user:9001
 
-# Todo 3: Edit the zuul-urls with the app's name in the docker-compose
 # Zuul routing
 zuul:
   routes:
     monolith:
       path: /mono/**
-      url: http://localhost:8090/mono/
+      url: http://monolith:8090/mono/
     user:
       path: /user/**
-      url: http://localhost:9001/user/
+      url: http://user:9001/user/
     stats:
       path: /stats/**
-      url: http://localhost:9002/stats/
+      url: http://stats:9002/stats/
     stock:
       path: /stock/**
-      url: http://localhost:9003/stock/
+      url: http://stock:9003/stock/

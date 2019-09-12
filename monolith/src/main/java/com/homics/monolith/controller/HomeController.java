@@ -16,8 +16,7 @@ public class HomeController {
     @GetMapping(value = {
             "/articles",
             "/cart",
-            "/history",
-            "/stats"})
+            "/history"})
     public String index() {
         return "/index.html";
     }

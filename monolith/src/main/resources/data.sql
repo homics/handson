@@ -1,3 +1,4 @@
+delete  from article;
 INSERT INTO article (id, price,  name, description, image)
 VALUES(1,3, 'Banana', 'Amazing set of bananas, but the best is still this description.','https://staging.andros.ch/admin/wp-content/uploads/2018/03/banane.png'),
 (2, 2, 'Carrot', 'You know what we say about the carrot: the more you eat, the kinder you become. Furthermore, it makes your ass cheeks pink. Just for that, you should buy it.','https://www.olfastory.com/sites/www.olfastory.com/files/styles/400x400/public/carotte.jpg'),

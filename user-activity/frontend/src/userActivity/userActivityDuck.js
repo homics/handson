@@ -25,3 +25,8 @@ export function fetchUserActivity() {
         })
       );
 }
+
+export function crashApplication() {
+    return dispatch =>
+        axios.get("/user/crash");
+}

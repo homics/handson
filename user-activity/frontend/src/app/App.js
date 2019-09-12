@@ -8,6 +8,7 @@ import UserActivityPage from "../userActivity/UserActivityPage";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.min.css';
 import NotFound from "./NotFound";
+import VersionPage from "../version/VersionPage";
 
 const store = configureStore();
 
@@ -27,6 +28,7 @@ class App extends Component {
             <Header />
             <Switch>
                 <Route path="/user/userActivity" component={UserActivityPage} />
+                <Route path="/user/versions" component={VersionPage} />
                 <Route component={NotFound} />
             </Switch>
           </div>

@@ -1,4 +1,4 @@
-version: '2'
+version: '2.3'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -8,6 +8,8 @@ services:
   kafka:
     image: wurstmeister/kafka:1.0.0
     container_name: homics-kafka
+    expose:
+      - "9092"
     ports:
       - "9092:9092"
     environment:

@@ -7,7 +7,7 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
 // Axios configuration
-axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.baseURL = '/';
 
 /* eslint-disable no-undef */
 /* eslint-disable quotes */

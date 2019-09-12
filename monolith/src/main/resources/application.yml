@@ -5,18 +5,15 @@ server:
   port: 8090
 
 spring:
-  # Enable h2 console
-  h2:
-    console:
-      enabled: true
-      path: /console
 
   # Set-up datasource
   datasource:
-    url: jdbc:h2:mem:monodb
+    url: jdbc:h2:tcp://homics-db:1521/monodb
     driverClassName: org.h2.Driver
     username: admin
     password: admin
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update

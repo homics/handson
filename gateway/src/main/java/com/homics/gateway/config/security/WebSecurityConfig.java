@@ -18,7 +18,7 @@ import java.util.Collections;
 
 /**
  * Handle security configuration in the gateway
- *
+ * <p>
  * Configure:
  * - HTTP security rules
  * - CORS
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers(HttpMethod.GET, "/login*", "/static/**", "/*.js", "/*.json", "/*.ico").permitAll().and()
+                .authorizeRequests().antMatchers(HttpMethod.GET, "/login*", "/internal/version*", "/versions*", "/crash*", "/static/**", "/*.js", "/*.json", "/*.ico").permitAll().and()
                 .authorizeRequests().antMatchers("/**").hasAnyRole("ADMIN", "USER").and()
                 .authorizeRequests().antMatchers("/console/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()

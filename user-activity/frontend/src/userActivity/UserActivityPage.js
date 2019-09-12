@@ -1,12 +1,16 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchUserActivity } from "./userActivityDuck";
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSkullCrossbones, faServer } from '@fortawesome/free-solid-svg-icons'
+
+import { fetchUserActivity, crashApplication } from "./userActivityDuck";
 
 import UserActivitiesList from "./UserActivitiesList";
-import {userActivityShape} from "./userActivityShape";
+import { userActivityShape } from "./userActivityShape";
 
 class UserActivityPage extends React.Component {
   constructor(props) {
@@ -19,6 +23,14 @@ class UserActivityPage extends React.Component {
       this.setState({ hasFetchUserActivities: true }));
   }
 
+  crashApp = () => {
+    this.props.crashApplication().then(window.location.reload());
+  };
+
+  openVersionPage = () => {
+    this.props.history.push("/user/versions");
+  };
+
   render() {
     const { userActivity } = this.props;
     const { hasFetchUserActivities } = this.state;
@@ -26,9 +38,30 @@ class UserActivityPage extends React.Component {
     return (
       <div>
         {hasFetchUserActivities && (
-          <UserActivitiesList
-            userActivity={userActivity}
-          />
+            <Fragment>
+              <br />
+              <div style={{display: 'flex', alignItems: 'center',  justifyContent: 'center',}}>
+                <span>
+                  <Button onClick={this.crashApp} >
+                    Crash{` `}
+                    <FontAwesomeIcon icon={faSkullCrossbones} />
+                  </Button>{`\t`}
+
+                  <Button onClick={this.openVersionPage} >
+                    Versions{` `}
+                    <FontAwesomeIcon icon={faServer} />
+                  </Button>
+                </span>
+              </div>
+
+              <br/>
+              <br/>
+
+              <UserActivitiesList
+                  userActivity={userActivity}
+              />
+            </Fragment>
+
         )}
       </div>
     )
@@ -38,6 +71,7 @@ class UserActivityPage extends React.Component {
 UserActivityPage.propTypes = {
   userActivity: PropTypes.arrayOf(userActivityShape),
   fetchUserActivity: PropTypes.func.isRequired,
+  crashApplication: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -50,6 +84,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       fetchUserActivity,
+      crashApplication,
     },
     dispatch
   )

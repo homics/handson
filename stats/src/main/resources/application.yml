@@ -3,16 +3,15 @@ server:
   port: 9002
 
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /console
 
+  # Set-up datasource
   datasource:
-    url: jdbc:h2:mem:statsdb
+    url: jdbc:h2:tcp://homics-db:1521/statsdb
     driverClassName: org.h2.Driver
     username: admin
     password: admin
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update

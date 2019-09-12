@@ -108,15 +108,7 @@ fabric.properties
 hs_err_pid*
 
 ### Maven ###
-target/antrun/
-target/generated-sources/
-target/generated-test-sources/
-target/maven-archiver/
-target/maven-status/
-target/node/
-target/test-classes/
-target/surefire/
-target/classes/
+target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

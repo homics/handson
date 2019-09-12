@@ -1,18 +1,17 @@
 # Enabling H2 Console
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /console
 
+  # Set-up datasource
   datasource:
-    url: jdbc:h2:mem:stockdb
+    url: jdbc:h2:tcp://homics-db:1521/stockdb
     driverClassName: org.h2.Driver
     username: admin
     password: admin
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
 
 app:
   topic:

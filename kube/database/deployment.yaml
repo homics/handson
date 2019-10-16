@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homics-db-deployment
+  labels:
+    app: homics-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: db
+  template:
+    metadata:
+      labels:
+        role: db
+    spec:
+      containers:
+        - name: homics-db
+          image: oscarfonts/h2:1.4.197
+          ports:
+            - containerPort: 1521
+            - containerPort: 81

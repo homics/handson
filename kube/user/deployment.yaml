@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+# TODO 3: Create a deployment for the user-activity application
+
+# TODO 5: Setup user-activity readiness
+
+# TODO 6: Update the numbers of replicas

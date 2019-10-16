@@ -1,0 +1,2 @@
+apiVersion: apps/v1
+# TODO 1: Create a deployment for the gateway

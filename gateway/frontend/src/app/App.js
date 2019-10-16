@@ -6,6 +6,7 @@ import configureStore from './store';
 import {ToastContainer} from "react-toastify";
 import Header from "./Header";
 import LoginPage from "../auth/LoginPage";
+import LogoutPage from "../auth/LogoutPage";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.min.css';
 import NotFound from "./NotFound";
@@ -29,6 +30,7 @@ class App extends Component {
             <Header />
             <Switch>
               <Route path="/login" component={LoginPage} />
+              <Route path="/logout" component={LogoutPage} />
               <PrivateRoute component={NotFound} />
             </Switch>
           </div>

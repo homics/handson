@@ -65,7 +65,7 @@ const Header = ({performLogout}) => (
             <Nav.Link href="/user/userActivity">User Activity micro</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link onClick={performLogout}>Logout</Nav.Link>
+            <Nav.Link href="/logout">Logout</Nav.Link>
           </Nav.Item>
         </Nav>
     </Fragment>

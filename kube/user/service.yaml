@@ -1,0 +1,2 @@
+apiVersion: v1
+# TODO 4: Create a Service so the user-activity can be access on 9001

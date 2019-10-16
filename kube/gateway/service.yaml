@@ -1,0 +1,2 @@
+apiVersion: v1
+# TODO 2: Create a Service so the gateway can be access on 8080

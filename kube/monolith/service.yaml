@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gateway
+  name: monolith
 spec:
   type: NodePort
   ports:
-    - nodePort: 31317
-      port: 8080
+    - nodePort: 31320
+      port: 8090
       protocol: TCP
-      targetPort: 8080
+      targetPort: 8090
   selector:
-    app: gateway
+    app: user

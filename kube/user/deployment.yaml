@@ -1,6 +1,28 @@
 apiVersion: apps/v1
-# TODO 3: Create a deployment for the user-activity application
-
-# TODO 5: Setup user-activity readiness
-
-# TODO 6: Update the numbers of replicas
+kind: Deployment
+metadata:
+  name: user-deployment
+  labels:
+    app: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+      - name: user
+        image: homics/user-activity:1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9001
+        readinessProbe:
+          httpGet:
+            path: /user/internal/version
+            port: 9001
+          initialDelaySeconds: 3
+          periodSeconds: 3
